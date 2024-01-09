@@ -1,9 +1,3 @@
-import {
-  DocumentData,
-  QueryDocumentSnapshot,
-  SnapshotOptions,
-} from 'firebase/firestore';
-
 export type UserModel = {
     id: string;
     email: string;
@@ -27,19 +21,4 @@ export type UserModel = {
     reviewCount: number,
     followerCount: number,
     followingCount: number,
-};
-
-export const userModelConverter = {
-  toFirestore(user: UserModel): DocumentData {
-    return { ...user };
-  },
-  fromFirestore(
-    snapshot: QueryDocumentSnapshot,
-    options: SnapshotOptions
-  ): UserModel {
-    const data = snapshot.data(options) as UserModel;
-    return {
-      ...data,
-    };
-  },
 };
