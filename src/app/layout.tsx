@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Rubik } from 'next/font/google'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/react'
 
 const rubik = Rubik({ subsets: ['latin'] })
 
@@ -51,7 +52,10 @@ export default function RootLayout({
         />
         <meta property="twitter:image" content="https://data.tapped.ai/og.png"></meta>
       </head>
-      <body className={rubik.className}>{children}</body>
+      <body className={rubik.className}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
