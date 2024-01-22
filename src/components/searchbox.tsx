@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, use } from 'react';
 import {
   useInstantSearch,
   useSearchBox,
@@ -51,7 +51,7 @@ export default function CustomSearchBox(props: UseSearchBoxProps) {
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
-          placeholder="search for artists"
+          placeholder="search for performers or venues"
           spellCheck={false}
           maxLength={512}
           type="search"

@@ -1,14 +1,15 @@
 'use client';
+
 import { UserModel } from "@/types/user_model";
 import algoliasearch from "algoliasearch/lite";
 import {
     InstantSearch,
-    SearchBox,
     Hits,
 } from "react-instantsearch";
 import Image from 'next/image';
 import Link from 'next/link';
 import CustomSearchBox from "./searchbox";
+import { useEffect } from "react";
 
 const searchClient = algoliasearch(
     'GCNFAI2WB6',
@@ -16,6 +17,11 @@ const searchClient = algoliasearch(
 );
 
 function Hit({ hit }: { hit: UserModel }) {
+    useEffect(() => {
+        // get the artist info using hit.id
+
+    }, [hit]);
+
     const profileImage = (() => {
         if (
             hit.profilePicture === undefined ||
@@ -32,7 +38,7 @@ function Hit({ hit }: { hit: UserModel }) {
             href={`https://tapped.ai/${hit.username}`}
         >
             <div
-                className='flex flex-row items-center justify-start bg-gray-700 rounded-xl px-4 py-3 my-4 hover:scale-105 transition-all duration-150 ease-in-out'
+                className='w-full flex flex-row items-center justify-start bg-gray-700 rounded-xl px-4 py-3 my-4 hover:scale-105 transition-all duration-150 ease-in-out'
             >
                 <Image
                     src={profileImage}
@@ -43,8 +49,8 @@ function Hit({ hit }: { hit: UserModel }) {
                 />
                 <div className="w-4" />
                 <div>
-                    <h1>{hit.artistName}</h1>
-                    <p>@{hit.username}</p>
+                    <h1 className="font-bold text-xl">{hit.artistName}</h1>
+                    <p className="text-sm text-gray-400">@{hit.username}</p>
                 </div>
             </div>
         </Link>
@@ -54,9 +60,14 @@ function Hit({ hit }: { hit: UserModel }) {
 export default function Search() {
     return (
         <>
-            <InstantSearch indexName="prod_users" searchClient={searchClient}>
+            <InstantSearch 
+                future={{ preserveSharedStateOnUnmount: true }}
+                indexName="prod_users" 
+                searchClient={searchClient}>
                 <CustomSearchBox />
-                <Hits hitComponent={Hit} />
+                <div className="w-full md:w-1/2">
+                    <Hits hitComponent={Hit} />
+                </div>
             </InstantSearch>
         </>
     );
