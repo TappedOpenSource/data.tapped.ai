@@ -1,7 +1,6 @@
 'use client';
 
-import { UserModel } from "@/types/user_model";
-import algoliasearch from "algoliasearch/lite";
+import { UserModel, getProfileImage } from "@/types/user_model";
 import {
     InstantSearch,
     Hits,
@@ -10,11 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import CustomSearchBox from "./searchbox";
 import { useEffect } from "react";
-
-const searchClient = algoliasearch(
-    'GCNFAI2WB6',
-    'c89ebf37b46a3683405be3ed0901f217',
-);
+import { searchClient } from "@/utils/search";
 
 function Hit({ hit }: { hit: UserModel }) {
     useEffect(() => {
@@ -22,16 +17,7 @@ function Hit({ hit }: { hit: UserModel }) {
 
     }, [hit]);
 
-    const profileImage = (() => {
-        if (
-            hit.profilePicture === undefined ||
-            hit.profilePicture === null ||
-            hit.profilePicture === '') {
-            return '/images/default_avatar.png';
-        }
-
-        return hit.profilePicture;
-    })();
+    const profileImage = getProfileImage(hit);
 
     return (
         <Link
@@ -46,6 +32,7 @@ function Hit({ hit }: { hit: UserModel }) {
                     width={50}
                     height={50}
                     className="rounded-full"
+                    style={{ objectFit: "cover" }}
                 />
                 <div className="w-4" />
                 <div>

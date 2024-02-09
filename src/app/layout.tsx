@@ -26,6 +26,7 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
         <meta
           name="description"
           content={description}
@@ -53,7 +54,7 @@ export default function RootLayout({
         <meta property="twitter:image" content="https://data.tapped.ai/og.png"></meta>
       </head>
       <body className={rubik.className}>
-        {children}
+          {children}
         <Analytics />
       </body>
     </html>
