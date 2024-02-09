@@ -74,8 +74,8 @@ export default function VenueMap() {
                             alt="musician profile picture"
                             width={35}
                             height={35}
-                            className="rounded-full"
-                            style={{ objectFit: "cover" }}
+                            className="rounded-full hover:cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
+                            style={{ objectFit: "cover", overflow: "hidden" }}
                         />
                     </Marker>
                 );
